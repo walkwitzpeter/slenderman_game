@@ -8,8 +8,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 2f;
     public CharacterController controller;
     public Camera cam;
-    public Text scoreboard;
-    public int score;
     public float endurance;
 
     private float walkingSpeed;
@@ -20,7 +18,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //brings camera to correct positon
-        this.transform.position = new Vector3(0, 1, -10);
+        this.transform.position = new Vector3(0, 1, 0);
 
         walkingSpeed = speed;
         enduranceMax = endurance;
@@ -58,8 +56,6 @@ public class PlayerController : MonoBehaviour
                 if (interactable != null)
                 {
                     Destroy(interactable.gameObject);
-                    score += 1;
-                    scoreboard.text = "Assignments: " + score + "/8";
                 }
             }
         }
