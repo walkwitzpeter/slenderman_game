@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,11 +15,19 @@ public class PlayerController : MonoBehaviour
     private bool isRunning;
     private float enduranceMax;
 
+    public TextMeshProUGUI scoreText;
+    private int score;
+
     // Start is called before the first frame update
     void Start()
     {
+        //brings camera to correct positon
+        this.transform.position = new Vector3(500, 4, 500);
+
         walkingSpeed = speed;
         enduranceMax = endurance;
+        score = 0;
+        scoreText.gameObject.SetActive(false);
     }
 
     void Update()
@@ -26,7 +35,7 @@ public class PlayerController : MonoBehaviour
         float posX = transform.position.x;
         float posZ = transform.position.z;
 
-        if (this.transform.position.y > 1.25)
+        if(this.transform.position.y > 1.25)
         {
             this.transform.position = new Vector3(posX, 1, posZ);
         }
@@ -53,6 +62,8 @@ public class PlayerController : MonoBehaviour
                 if (interactable != null)
                 {
                     Destroy(interactable.gameObject);
+                    score++;
+                    StartCoroutine(UpdateScore());
                 }
             }
         }
@@ -86,6 +97,15 @@ public class PlayerController : MonoBehaviour
             isRunning = false;
             speed = walkingSpeed;
         }
+    }
+
+    IEnumerator UpdateScore()
+    {
+        scoreText.gameObject.SetActive(true);
+        scoreText.text = "Score " + score + "/?";
+        yield return new WaitForSeconds(3f);
+        scoreText.gameObject.SetActive(false);
+        StopCoroutine(UpdateScore());
     }
 }
 

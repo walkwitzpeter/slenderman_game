@@ -172,8 +172,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   controller: {fileID: 558862811}
-  cam: {fileID: 0}
+  cam: {fileID: 1438164819}
   endurance: 0
+  scoreText: {fileID: 1963042354}
 --- !u!143 &558862811
 CharacterController:
   m_ObjectHideFlags: 0
@@ -221,6 +222,7 @@ GameObject:
   - component: {fileID: 702214549}
   - component: {fileID: 702214548}
   - component: {fileID: 702214547}
+  - component: {fileID: 702214551}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -304,6 +306,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &702214551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702214546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c31e640c1166e864799c52d51d8ff682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 1
 --- !u!1 &992467069
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,7 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34672fe562fef91428b5d307c175d63b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 100
+  mouseSensitivity: 400
   playerBody: {fileID: 558862812}
   xRotation: 0
 --- !u!114 &1438164817
@@ -985,8 +1000,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
