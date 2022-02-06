@@ -154,9 +154,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fef28a4c432b07b469cd4ec736be3117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOn: 0
-  lightSource: {fileID: 0}
-  clickSound: {fileID: 0}
+  isOn: 1
+  lightSource: {fileID: 1821886954}
+  clickSound: {fileID: 2107520458}
   failSafe: 0
 --- !u!114 &558862810
 MonoBehaviour:
@@ -174,7 +174,6 @@ MonoBehaviour:
   controller: {fileID: 558862811}
   cam: {fileID: 0}
   endurance: 0
-  scoreText: {fileID: 0}
 --- !u!143 &558862811
 CharacterController:
   m_ObjectHideFlags: 0
