@@ -63,7 +63,13 @@ public class PlayerController : MonoBehaviour
                 {
                     Destroy(interactable.gameObject);
                     score++;
+                    if(score == 4){
+                        scoreText.gameObject.SetActive(true);
+                        scoreText.text = "YOU WIN!";
+                    }
+                    else{
                     StartCoroutine(UpdateScore());
+                    }
                 }
             }
         }
