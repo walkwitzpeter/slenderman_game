@@ -33,7 +33,10 @@ public class Stalk : MonoBehaviour {
     {
         if (isStalking)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed/100);
+            transform.position = Vector3.MoveTowards(
+                new Vector3(transform.position.x, posY, transform.position.z), 
+                new Vector3(target.transform.position.x, posY, target.transform.position.z), 
+                speed/100);
         }
     }
 
