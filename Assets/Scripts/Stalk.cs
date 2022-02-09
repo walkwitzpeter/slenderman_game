@@ -8,6 +8,7 @@ public class Stalk : MonoBehaviour {
     public float speed;
     public float cooldownTime;
     public float stalkTime;
+    public float deathDistance;
 
     public float posX;
     public float posY;
@@ -38,6 +39,9 @@ public class Stalk : MonoBehaviour {
                 new Vector3(target.transform.position.x, posY, target.transform.position.z), 
                 speed/100);
         }
+
+        if(Vector3.Distance(gameObject.transform.position, target.transform.position) < deathDistance)
+            SceneManager.LoadScene("GameOverScreen");
     }
 
     IEnumerator Cooldown(){
