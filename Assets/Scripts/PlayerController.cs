@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -64,11 +65,10 @@ public class PlayerController : MonoBehaviour
                     Destroy(interactable.gameObject);
                     score++;
                     if(score == 4){
-                        scoreText.gameObject.SetActive(true);
-                        scoreText.text = "YOU WIN!";
+                        SceneManager.LoadScene("GameOverScreen");
                     }
                     else{
-                    StartCoroutine(UpdateScore());
+                        StartCoroutine(UpdateScore());
                     }
                 }
             }
