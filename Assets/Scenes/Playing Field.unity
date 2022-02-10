@@ -491,7 +491,7 @@ MonoBehaviour:
   speed: 2
   controller: {fileID: 558862811}
   cam: {fileID: 1438164819}
-  endurance: 0
+  endurance: 2000
   scoreText: {fileID: 1963042354}
 --- !u!143 &558862811
 CharacterController:
