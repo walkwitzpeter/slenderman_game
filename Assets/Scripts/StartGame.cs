@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour
 {
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+    }
+
     public void startGame()
     {
         SceneManager.LoadScene("Playing Field");

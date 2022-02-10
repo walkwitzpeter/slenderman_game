@@ -838,7 +838,7 @@ MonoBehaviour:
   speed: 4
   cooldownTime: 10
   stalkTime: 20
-  deathDistance: 20
+  deathDistance: 12
   posX: 500
   posY: 1.3
   posZ: 625
