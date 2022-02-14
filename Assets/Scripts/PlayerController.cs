@@ -19,16 +19,20 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI scoreText;
     private int score;
 
+    private string prevSceneName;
+
     // Start is called before the first frame update
     void Start()
     {
         //brings camera to correct positon
         this.transform.position = new Vector3(500, 6, 500);
+        Debug.Log("Hi");
 
         walkingSpeed = speed;
         enduranceMax = endurance;
         score = 0;
         scoreText.gameObject.SetActive(false);
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void Update()
@@ -36,7 +40,7 @@ public class PlayerController : MonoBehaviour
         float posX = transform.position.x;
         float posZ = transform.position.z;
 
-        if(this.transform.position.y > 6)
+        if(this.transform.position.y != 6)
         {
             this.transform.position = new Vector3(posX, 6, posZ);
         }
@@ -77,11 +81,11 @@ public class PlayerController : MonoBehaviour
                 {
                     if(SceneManager.GetActiveScene().name.Equals("Playing Field"))
                     {
-                        SceneManager.LoadScene("Cabin");
+                        TransitionScenes("Cabin", "Playing Field", new Vector3(500, 6, 500));
                     }
                     else if(SceneManager.GetActiveScene().name.Equals("Cabin"))
                     {
-                        SceneManager.LoadScene("Playing Field");
+                        TransitionScenes("Playing Field", "Cabin", new Vector3(462, 6, 465));
                     }
                 } 
             }
@@ -126,6 +130,11 @@ public class PlayerController : MonoBehaviour
         scoreText.gameObject.SetActive(false);
         StopCoroutine(UpdateScore());
     }
+
+        private void TransitionScenes(string nextScene, string prevScene, Vector3 playerPosition)
+    {
+        prevScene = prevScene;
+        SceneManager.LoadScene(nextScene);
+        this.transform.position = playerPosition;
+    }
 }
-
-

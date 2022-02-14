@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class SetupCabinScene : MonoBehaviour
+public class DestroyPlayerGameObject : MonoBehaviour
 {
-
     private GameObject player;
 
+    // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("First Person Player");
-        player.transform.position = new Vector3(500, 6, 500);
+        if(player !=null) Destroy(player);
     }
 }

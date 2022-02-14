@@ -32,6 +32,12 @@ public class Stalk : MonoBehaviour {
     // FixedUpdate is called once per frame
     void FixedUpdate()
     {
+
+        if(target == null)
+        {
+            target = GameObject.Find("First Person Player");
+        }
+
         if (isStalking)
         {
             transform.position = Vector3.MoveTowards(
@@ -41,7 +47,9 @@ public class Stalk : MonoBehaviour {
         }
 
         if(Vector3.Distance(gameObject.transform.position, target.transform.position) < deathDistance)
+        {
             SceneManager.LoadScene("GameOverScreen");
+        }
     }
 
     IEnumerator Cooldown(){

@@ -366,6 +366,7 @@ GameObject:
   - component: {fileID: 6758935828154416230}
   - component: {fileID: 6758935828154416229}
   - component: {fileID: 6758935828154416225}
+  - component: {fileID: 3643859164822227148}
   m_Layer: 0
   m_Name: First Person Player
   m_TagString: Untagged
@@ -425,6 +426,7 @@ MonoBehaviour:
   cam: {fileID: 6758935827943443183}
   endurance: 2000
   scoreText: {fileID: 0}
+  cover: {fileID: 0}
 --- !u!114 &6758935828154416229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,3 +459,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
+--- !u!114 &3643859164822227148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6758935828154416228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94fe0bec57e7ef84cae066853538e41f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
