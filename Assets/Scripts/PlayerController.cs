@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //brings camera to correct positon
-        this.transform.position = new Vector3(500, 4, 500);
+        this.transform.position = new Vector3(500, 6, 500);
 
         walkingSpeed = speed;
         enduranceMax = endurance;
@@ -36,9 +36,9 @@ public class PlayerController : MonoBehaviour
         float posX = transform.position.x;
         float posZ = transform.position.z;
 
-        if(this.transform.position.y > 1.25)
+        if(this.transform.position.y > 6)
         {
-            this.transform.position = new Vector3(posX, 1, posZ);
+            this.transform.position = new Vector3(posX, 6, posZ);
         }
 
         float x = Input.GetAxis("Horizontal");
@@ -60,7 +60,8 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(detect, out hit, 5))
             {
                 Interactable interactable = hit.collider.GetComponent<Interactable>();
-                if (interactable != null)
+                if (interactable != null
+                && hit.transform.gameObject.layer == 6)
                 {
                     Destroy(interactable.gameObject);
                     score++;
@@ -71,6 +72,18 @@ public class PlayerController : MonoBehaviour
                         StartCoroutine(UpdateScore());
                     }
                 }
+                else if(interactable != null 
+                        && hit.transform.gameObject.layer == 7)
+                {
+                    if(SceneManager.GetActiveScene().name.Equals("Playing Field"))
+                    {
+                        SceneManager.LoadScene("Cabin");
+                    }
+                    else if(SceneManager.GetActiveScene().name.Equals("Cabin"))
+                    {
+                        SceneManager.LoadScene("Playing Field");
+                    }
+                } 
             }
         }
 
