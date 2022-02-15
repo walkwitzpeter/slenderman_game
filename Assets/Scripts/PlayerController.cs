@@ -25,8 +25,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //brings camera to correct positon
-        this.transform.position = new Vector3(500, 6, 500);
-        Debug.Log("Hi");
+        //Hey Robbie I commented this out because otherwise our player starts off the ground and the apple trees will push him down (The rocks may even do it too)
+        //this.transform.position = new Vector3(500, 6, 500);
+        //Debug.Log("Hi");
 
         walkingSpeed = speed;
         enduranceMax = endurance;
@@ -81,11 +82,11 @@ public class PlayerController : MonoBehaviour
                 {
                     if(SceneManager.GetActiveScene().name.Equals("Playing Field"))
                     {
-                        TransitionScenes("Cabin", "Playing Field", new Vector3(500, 6, 500));
+                        TransitionScenes("Cabin", "Playing Field", new Vector3(500, 3.75f, 500));
                     }
                     else if(SceneManager.GetActiveScene().name.Equals("Cabin"))
                     {
-                        TransitionScenes("Playing Field", "Cabin", new Vector3(462, 6, 465));
+                        TransitionScenes("Playing Field", "Cabin", new Vector3(462, 3.75f, 465));
                     }
                 } 
             }
@@ -133,7 +134,7 @@ public class PlayerController : MonoBehaviour
 
         private void TransitionScenes(string nextScene, string prevScene, Vector3 playerPosition)
     {
-        prevScene = prevScene;
+        //prevScene = prevScene;
         SceneManager.LoadScene(nextScene);
         this.transform.position = playerPosition;
     }
