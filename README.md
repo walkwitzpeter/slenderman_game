@@ -13,3 +13,6 @@ https://polyhaven.com/a/metal_plate
 
 Wooden wall texture taken from
 https://polyhaven.com/a/wood_plank_wall 
+
+Trees Taken from
+https://assetstore.unity.com/packages/3d/vegetation/trees/poly-low-trees-pack-free-204089
