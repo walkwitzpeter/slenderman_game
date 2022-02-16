@@ -41,9 +41,9 @@ public class PlayerController : MonoBehaviour
         float posX = transform.position.x;
         float posZ = transform.position.z;
 
-        if(this.transform.position.y != 6)
+        if(this.transform.position.y != 4.1f)
         {
-            this.transform.position = new Vector3(posX, 6, posZ);
+            this.transform.position = new Vector3(posX, 4.1f, posZ);
         }
 
         float x = Input.GetAxis("Horizontal");
