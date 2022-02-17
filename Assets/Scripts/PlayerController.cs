@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,9 +25,18 @@ public class PlayerController : MonoBehaviour
     public bool beenInCabin = false;
     public bool canUseDoors = true;
 
+    private ArrayList pickupIds;
+    public static Transform pickupList;
+
     // Start is called before the first frame update
     void Start()
     {
+        pickupIds = new ArrayList();
+        for(int i = 0; i < pickupList.childCount; i++)
+        {
+            pickupIds.Add(pickupList.GetChild(i).gameObject);
+        }
+
         walkingSpeed = speed;
         enduranceMax = endurance;
         scoreText.gameObject.SetActive(false);
@@ -65,7 +75,14 @@ public class PlayerController : MonoBehaviour
                 if (interactable != null
                 && hit.transform.gameObject.layer == 6)
                 {
-                    Destroy(interactable.gameObject);
+                    //Remove the note from the master list of notes, destroy the note
+                    string pickupId = hit.transform.gameObject.name;
+                    int idNumber = Int32.Parse(pickupId);
+
+                    pickupIds.Remove(idNumber);
+                    UpdatePickupValues(interactable.gameObject.name);
+                    interactable.gameObject.SetActive(false);
+
                     score++;
                     if(score == 4){
                         SceneManager.LoadScene("GameOverScreen");
@@ -78,6 +95,7 @@ public class PlayerController : MonoBehaviour
                         && hit.transform.gameObject.layer == 7
                         && canUseDoors)
                 {
+                    //use the door
                     if(SceneManager.GetActiveScene().name.Equals("Playing Field"))
                     {
                         TransitionScenes("Cabin", "Playing Field", new Vector3(500, 4.1f, 500));
@@ -85,6 +103,8 @@ public class PlayerController : MonoBehaviour
                     else if(SceneManager.GetActiveScene().name.Equals("Cabin"))
                     {
                         TransitionScenes("Playing Field", "Cabin", new Vector3(500, 4.1f, 500));
+                        pickupList = GameObject.Find("Pickup List").transform;
+                        RemoveAlreadyCollectedItems();
                     }
                 } 
             }
@@ -135,5 +155,26 @@ public class PlayerController : MonoBehaviour
         //prevScene = prevScene;
         SceneManager.LoadScene(nextScene);
         this.transform.position = playerPosition;
+    }
+
+    private void RemoveAlreadyCollectedItems()
+    {
+        for(int i = 0; i < pickupList.childCount; i++)
+        {
+            if(!pickupIds.Contains(i.ToString()))
+            {
+                GameObject pickup = pickupList.GetChild(i).gameObject;
+                pickup.SetActive(false);
+            }
+        }
+    }
+
+    private void UpdatePickupValues(string pickedUpPickup)
+    {
+        for(int i = 0; i < pickupList.childCount; i++)
+        { 
+            GameObject temp = (GameObject) pickupIds[i];
+            temp.name = i.ToString();
+        }
     }
 }
