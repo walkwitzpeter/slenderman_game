@@ -22,8 +22,8 @@ public class PlayerController : MonoBehaviour
 
     private string prevSceneName;
 
-    public bool beenInCabin = false;
-    public bool canUseDoors = true;
+    public bool beenInCabin;
+    public bool canUseDoors;
 
     private ArrayList pickupIds;
     public Transform pickupList;
@@ -99,7 +99,6 @@ public class PlayerController : MonoBehaviour
                     }
                     else if(SceneManager.GetActiveScene().name.Equals("Cabin"))
                     {
-                        Debug.Log(beenInCabin);
                         TransitionScenes("Playing Field", "Cabin", new Vector3(500, 4.1f, 500));
                     }
                 } 
