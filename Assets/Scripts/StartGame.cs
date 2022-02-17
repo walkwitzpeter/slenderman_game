@@ -12,6 +12,6 @@ public class StartGame : MonoBehaviour
 
     public void startGame()
     {
-        SceneManager.LoadScene("Playing Field");
+        SceneManager.LoadScene("Cabin");
     }
 }

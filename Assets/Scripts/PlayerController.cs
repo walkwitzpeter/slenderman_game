@@ -21,18 +21,16 @@ public class PlayerController : MonoBehaviour
 
     private string prevSceneName;
 
+    public bool beenInCabin = false;
+    public bool canUseDoors = true;
+
     // Start is called before the first frame update
     void Start()
     {
-        //brings camera to correct positon
-        //Hey Robbie I commented this out because otherwise our player starts off the ground and the apple trees will push him down (The rocks may even do it too)
-        //this.transform.position = new Vector3(500, 6, 500);
-        //Debug.Log("Hi");
-
         walkingSpeed = speed;
         enduranceMax = endurance;
-        score = 0;
         scoreText.gameObject.SetActive(false);
+        score = 0;
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -56,7 +54,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             // On a right mouse button click, check for interaction.
-
             // Make a ray that will look for interactale objects
             Ray detect = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -78,15 +75,16 @@ public class PlayerController : MonoBehaviour
                     }
                 }
                 else if(interactable != null 
-                        && hit.transform.gameObject.layer == 7)
+                        && hit.transform.gameObject.layer == 7
+                        && canUseDoors)
                 {
                     if(SceneManager.GetActiveScene().name.Equals("Playing Field"))
                     {
-                        TransitionScenes("Cabin", "Playing Field", new Vector3(500, 3.75f, 500));
+                        TransitionScenes("Cabin", "Playing Field", new Vector3(500, 4.1f, 500));
                     }
                     else if(SceneManager.GetActiveScene().name.Equals("Cabin"))
                     {
-                        TransitionScenes("Playing Field", "Cabin", new Vector3(462, 3.75f, 465));
+                        TransitionScenes("Playing Field", "Cabin", new Vector3(462, 4.1f, 465));
                     }
                 } 
             }
