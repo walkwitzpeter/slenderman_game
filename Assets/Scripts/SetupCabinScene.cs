@@ -34,7 +34,6 @@ public class SetupCabinScene : MonoBehaviour
         //runs beginning game dialogue
         if(!playerController.beenInCabin)
         {
-            playerController.beenInCabin = true;
              StartCoroutine(OpeningDialogue());
         }
     }
@@ -87,6 +86,7 @@ public class SetupCabinScene : MonoBehaviour
         }
 
         openingDialogue.gameObject.SetActive(false);
+        //playerController.beenInCabin = true;
         playerController.canUseDoors = true;
         StopCoroutine(OpeningDialogue());
     }
