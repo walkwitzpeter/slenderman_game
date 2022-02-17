@@ -26,21 +26,17 @@ public class PlayerController : MonoBehaviour
     public bool canUseDoors = true;
 
     private ArrayList pickupIds;
-    public static Transform pickupList;
+    public Transform pickupList;
 
     // Start is called before the first frame update
     void Start()
     {
-        pickupIds = new ArrayList();
-        for(int i = 0; i < pickupList.childCount; i++)
-        {
-            pickupIds.Add(pickupList.GetChild(i).gameObject);
-        }
+        Debug.Log("hello");
+        if(!beenInCabin && SceneManager.GetActiveScene().name.Equals("Playing Field")) StartCoroutine(DelayUpdateOfPickupList());
 
         walkingSpeed = speed;
         enduranceMax = endurance;
         scoreText.gameObject.SetActive(false);
-        score = 0;
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -80,7 +76,8 @@ public class PlayerController : MonoBehaviour
                     int idNumber = Int32.Parse(pickupId);
 
                     pickupIds.Remove(idNumber);
-                    UpdatePickupValues(interactable.gameObject.name);
+                    
+                    UpdatePickupValues(interactable.gameObject);
                     interactable.gameObject.SetActive(false);
 
                     score++;
@@ -102,9 +99,8 @@ public class PlayerController : MonoBehaviour
                     }
                     else if(SceneManager.GetActiveScene().name.Equals("Cabin"))
                     {
+                        Debug.Log(beenInCabin);
                         TransitionScenes("Playing Field", "Cabin", new Vector3(500, 4.1f, 500));
-                        pickupList = GameObject.Find("Pickup List").transform;
-                        RemoveAlreadyCollectedItems();
                     }
                 } 
             }
@@ -157,24 +153,55 @@ public class PlayerController : MonoBehaviour
         this.transform.position = playerPosition;
     }
 
+    private void SetupPickupList()
+    {
+        Debug.Log("hi");
+        score = 0;
+        beenInCabin = true;
+        pickupIds = new ArrayList();
+        for(int i = 0; i < pickupList.childCount; i++)
+        {
+            Debug.Log(pickupList.GetChild(i).gameObject.name);
+            pickupIds.Add(pickupList.GetChild(i).gameObject.name);
+        }
+    }
+
+    IEnumerator DelayUpdateOfPickupList()
+    {
+        yield return new WaitForSeconds(1f);
+        pickupList = GameObject.Find("PickupList").transform;
+
+        if(!beenInCabin)
+        {
+            SetupPickupList();
+        }
+
+        RemoveAlreadyCollectedItems();
+        StopCoroutine(DelayUpdateOfPickupList());
+    }
+
     private void RemoveAlreadyCollectedItems()
     {
+        int j = 0;
         for(int i = 0; i < pickupList.childCount; i++)
         {
             if(!pickupIds.Contains(i.ToString()))
             {
                 GameObject pickup = pickupList.GetChild(i).gameObject;
                 pickup.SetActive(false);
+                j++;
             }
+            Debug.Log(j);
         }
     }
 
-    private void UpdatePickupValues(string pickedUpPickup)
+    private void UpdatePickupValues(GameObject pickedUpPickup)
     {
+        pickedUpPickup.name = "666";
         for(int i = 0; i < pickupList.childCount; i++)
         { 
-            GameObject temp = (GameObject) pickupIds[i];
-            temp.name = i.ToString();
+            string temp = (string) pickupIds[i];
+            pickupList.GetChild(i).name = i.ToString();
         }
     }
 }
