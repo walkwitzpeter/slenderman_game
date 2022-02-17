@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
                     }
                     else if(SceneManager.GetActiveScene().name.Equals("Cabin"))
                     {
-                        TransitionScenes("Playing Field", "Cabin", new Vector3(462, 4.1f, 465));
+                        TransitionScenes("Playing Field", "Cabin", new Vector3(500, 4.1f, 500));
                     }
                 } 
             }
