@@ -76,10 +76,6 @@ public class PlayerController : MonoBehaviour
                     int idNumber = Int32.Parse(pickupId);
 
                     pickupIds.Remove(idNumber.ToString());
-                    foreach(string i in pickupIds)
-                    {
-                        Debug.Log("Killed" + i);
-                    }
                     
                     UpdatePickupValues(interactable.gameObject);
                     interactable.gameObject.SetActive(false);
@@ -177,11 +173,6 @@ public class PlayerController : MonoBehaviour
         {
             SetupPickupList();
         }
-        
-        foreach(string i in pickupIds)
-        {
-            Debug.Log(i);
-        }
 
         RemoveAlreadyCollectedItems();
         yield return new WaitForSeconds(1f);
@@ -190,17 +181,13 @@ public class PlayerController : MonoBehaviour
 
     private void RemoveAlreadyCollectedItems()
     {
-        int j = 0;
         for(int i = 0; i < pickupList.childCount; i++)
         {
-            //Debug.Log(i.ToString());
             if(!pickupIds.Contains(i.ToString()))
             {
                 GameObject pickup = pickupList.GetChild(i).gameObject;
                 pickup.SetActive(false);
-                j++;
             }
-            //Debug.Log(j);
         }
     }
 
