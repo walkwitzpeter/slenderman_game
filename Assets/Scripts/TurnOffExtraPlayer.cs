@@ -18,7 +18,6 @@ public class TurnOffExtraPlayer : MonoBehaviour
         }
         else
         {
-            Debug.Log("hi");
             Destroy(player);
         }
     }

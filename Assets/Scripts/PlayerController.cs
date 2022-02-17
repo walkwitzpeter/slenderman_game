@@ -31,7 +31,6 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("hello");
         if(!beenInCabin && SceneManager.GetActiveScene().name.Equals("Playing Field")) StartCoroutine(DelayUpdateOfPickupList());
 
         walkingSpeed = speed;
@@ -71,11 +70,16 @@ public class PlayerController : MonoBehaviour
                 if (interactable != null
                 && hit.transform.gameObject.layer == 6)
                 {
+
                     //Remove the note from the master list of notes, destroy the note
                     string pickupId = hit.transform.gameObject.name;
                     int idNumber = Int32.Parse(pickupId);
 
-                    pickupIds.Remove(idNumber);
+                    pickupIds.Remove(idNumber.ToString());
+                    foreach(string i in pickupIds)
+                    {
+                        Debug.Log("Killed" + i);
+                    }
                     
                     UpdatePickupValues(interactable.gameObject);
                     interactable.gameObject.SetActive(false);
@@ -100,6 +104,7 @@ public class PlayerController : MonoBehaviour
                     else if(SceneManager.GetActiveScene().name.Equals("Cabin"))
                     {
                         TransitionScenes("Playing Field", "Cabin", new Vector3(500, 4.1f, 500));
+                        StartCoroutine(DelayUpdateOfPickupList());
                     }
                 } 
             }
@@ -154,13 +159,11 @@ public class PlayerController : MonoBehaviour
 
     private void SetupPickupList()
     {
-        Debug.Log("hi");
         score = 0;
         beenInCabin = true;
         pickupIds = new ArrayList();
         for(int i = 0; i < pickupList.childCount; i++)
         {
-            Debug.Log(pickupList.GetChild(i).gameObject.name);
             pickupIds.Add(pickupList.GetChild(i).gameObject.name);
         }
     }
@@ -174,8 +177,14 @@ public class PlayerController : MonoBehaviour
         {
             SetupPickupList();
         }
+        
+        foreach(string i in pickupIds)
+        {
+            Debug.Log(i);
+        }
 
         RemoveAlreadyCollectedItems();
+        yield return new WaitForSeconds(1f);
         StopCoroutine(DelayUpdateOfPickupList());
     }
 
@@ -184,13 +193,14 @@ public class PlayerController : MonoBehaviour
         int j = 0;
         for(int i = 0; i < pickupList.childCount; i++)
         {
+            //Debug.Log(i.ToString());
             if(!pickupIds.Contains(i.ToString()))
             {
                 GameObject pickup = pickupList.GetChild(i).gameObject;
                 pickup.SetActive(false);
                 j++;
             }
-            Debug.Log(j);
+            //Debug.Log(j);
         }
     }
 
@@ -199,7 +209,6 @@ public class PlayerController : MonoBehaviour
         pickedUpPickup.name = "666";
         for(int i = 0; i < pickupList.childCount; i++)
         { 
-            string temp = (string) pickupIds[i];
             pickupList.GetChild(i).name = i.ToString();
         }
     }
