@@ -13,6 +13,13 @@ public class SetupCabinScene : MonoBehaviour
     private bool insideCabin;
 
     public TextMeshProUGUI openingDialogue;
+    public TextMeshProUGUI controlsDialogue;
+
+    private bool hasLookedAround;
+    private bool hasMovedAround;
+    public bool hasClickedRadio;
+
+    private float yRotation;
 
     void Start()
     {
@@ -27,14 +34,17 @@ public class SetupCabinScene : MonoBehaviour
             Destroy(newPlayer);
         }
 
-        playerController.canUseDoors = true;
         player = GameObject.Find("First Person Player");
+        playerController = GameObject.Find("First Person Player").GetComponent<PlayerController>();
+        playerController.canUseDoors = true;
         insideCabin = false;
+
+        yRotation = playerController.transform.localRotation.eulerAngles.y;
 
         //runs beginning game dialogue
         if(!playerController.beenInCabin)
         {
-             StartCoroutine(OpeningDialogue());
+            StartCoroutine(WalkthroughControls());
         }
     }
 
@@ -48,13 +58,62 @@ public class SetupCabinScene : MonoBehaviour
             player.transform.position = new Vector3(500, 4.1f, 500);
             insideCabin = true;
         }
+
+        if(!hasLookedAround)
+        {
+            if(yRotation != playerController.transform.localRotation.eulerAngles.y)
+            {
+                hasLookedAround = true;
+            }
+        }
+
+        if(!hasMovedAround)
+        {
+            if(Input.GetKeyDown("w") || Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d"))
+            {
+                hasMovedAround = true;
+            }
+        }
+    }
+
+    IEnumerator WalkthroughControls()
+    {
+        playerController.canUseDoors = false;
+
+        string dialoguePath = "Assets/Text/ControlWalkthrough.txt";
+        StreamReader readControls = new StreamReader(dialoguePath, true);
+
+        controlsDialogue.gameObject.SetActive(true);
+
+            controlsDialogue.text = readControls.ReadLine();
+            yield return new WaitForSeconds(3f);
+            while(!hasLookedAround)
+            {
+                yield return new WaitForSeconds(3f);
+            }
+
+            controlsDialogue.text = readControls.ReadLine();
+            yield return new WaitForSeconds(3f);
+            while(!hasMovedAround)
+            {
+                yield return new WaitForSeconds(3f);
+            }
+            
+            controlsDialogue.text = readControls.ReadLine();
+            yield return new WaitForSeconds(1f);
+            while(!hasClickedRadio)
+            {
+                yield return new WaitForSeconds(.1f);
+            }
+
+        readControls.Close();
+        controlsDialogue.gameObject.SetActive(false);
+        yield return StartCoroutine(OpeningDialogue());
+        StopCoroutine(WalkthroughControls());
     }
 
     IEnumerator OpeningDialogue()
     {
-
-        playerController.canUseDoors = false;
-
         string dialoguePath = "Assets/Text/OpeningDialogue.txt";
         string line;
         StreamReader readDialogue = new StreamReader(dialoguePath, true);
@@ -85,8 +144,8 @@ public class SetupCabinScene : MonoBehaviour
             yield return new WaitForSeconds(4f);
         }
 
+        readDialogue.Close();
         openingDialogue.gameObject.SetActive(false);
-        //playerController.beenInCabin = true;
         playerController.canUseDoors = true;
         StopCoroutine(OpeningDialogue());
     }

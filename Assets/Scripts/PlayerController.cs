@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     private ArrayList pickupIds;
     public Transform pickupList;
 
+    public SetupCabinScene cabinSetup;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,7 +83,7 @@ public class PlayerController : MonoBehaviour
                     interactable.gameObject.SetActive(false);
 
                     score++;
-                    if(score == 4){
+                    if(score == 8){
                         SceneManager.LoadScene("GameOverScreen");
                     }
                     else{
@@ -102,7 +104,11 @@ public class PlayerController : MonoBehaviour
                         TransitionScenes("Playing Field", "Cabin", new Vector3(500, 4.1f, 500));
                         StartCoroutine(DelayUpdateOfPickupList());
                     }
-                } 
+                }
+                else if(interactable != null && hit.transform.gameObject.layer == 8)
+                {
+                    cabinSetup.hasClickedRadio = true;
+                }
             }
         }
 
