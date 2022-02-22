@@ -19,3 +19,10 @@ https://polyhaven.com/a/forrest_ground_01
 
 Graveyard assets taken from
 https://id.unity.com/en/conversations/2b099a8b-a1a5-42b1-98d3-849151a42893002f
+
+Senderman and Monster model taken from Mixamo
+https://www.mixamo.com/#/?page=1&type=Character
+
+Playground Pieces taken from Turbosquid
+https://www.turbosquid.com/3d-models/playground-model-1810941
+https://www.turbosquid.com/3d-models/3d-teeter/776437
