@@ -22,6 +22,7 @@ https://id.unity.com/en/conversations/2b099a8b-a1a5-42b1-98d3-849151a42893002f
 
 Slenderman and Monster model taken from Mixamo
 https://www.mixamo.com/#/?page=1&type=Character
+
 Inspiration for this class project from original slender game
 https://slender.en.softonic.com/
 
